@@ -22,23 +22,26 @@ int main() {
 
     int choice = 0;
     while (true) {
-        cout << "Menu:\n";
+        cout << "\nMenu:\n";
         for (const auto& item : menu) {
             cout << "Task " << item.first << ". " << item.second.first << endl;
         }
         cout << "0. Exit\n";
-        EnterNumber(cin, choice, "Enter menu option: ");
+        auto inputFunc = EnterNumber(cin, choice, "Enter menu option");
+        inputFunc(); 
+        cout << "\n-------------------Action:-------------------\n";
         if (choice == 0) {
             cout << "0 2025 Mitrohin\n";
             break;
         }
-        cout << "\n-------------------Action:-------------------\n";
         if (menu.find(choice) != menu.end()) {
+            cout << "Executing: " << menu[choice].first << endl;
             menu[choice].second();
+            cout << "Action completed.\n";
         } else {
-            cout << "Invalid input.\n";
+            cout << "Invalid menu option. Please select a valid option.\n";
         }
-        cout << endl;
+        cout << "-------------------\n";
     }
     return 0;
 }

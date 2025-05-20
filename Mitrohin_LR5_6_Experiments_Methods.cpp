@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -37,6 +38,10 @@ Experiment* getExperiment(const string& type) {
 void createNewChemicalExperiment() {
     auto obj = make_unique<ChemicalExperiment>();
     cin >> *obj;
+    if (experimentsMap.find(obj->getExperimentId()) != experimentsMap.end()) {
+        cerr << "Error! Experiment ID already exists!\n";
+        return;
+    }
     if (!obj->validate()) {
         cerr << "Invalid Chemical Experiment data!\n";
         return;
@@ -51,12 +56,21 @@ void createCopyChemicalExperiment() {
         return;
     }
     auto copy = make_unique<ChemicalExperiment>(*source);
-    experimentsMap[copy->getExperimentId() + "_copy"] = move(copy);
+    string newId = copy->getExperimentId() + "_copy";
+    if (experimentsMap.find(newId) != experimentsMap.end()) {
+        cerr << "Error! Copy ID already exists!\n";
+        return;
+    }
+    experimentsMap[newId] = move(copy);
 }
 
 void createModifyChemicalExperiment() {
     string id, substances;
     EnterString(cin, id, "Enter new Chemical Experiment ID");
+    if (experimentsMap.find(id) != experimentsMap.end()) {
+        cerr << "Error! Experiment ID already exists!\n";
+        return;
+    }
     EnterString(cin, substances, "Enter substances");
     auto obj = make_unique<ChemicalExperiment>(id, substances);
     if (!obj->validate()) {
@@ -69,6 +83,10 @@ void createModifyChemicalExperiment() {
 void createNewBiologicalExperiment() {
     auto obj = make_unique<BiologicalExperiment>();
     cin >> *obj;
+    if (experimentsMap.find(obj->getExperimentId()) != experimentsMap.end()) {
+        cerr << "Error! Experiment ID already exists!\n";
+        return;
+    }
     if (!obj->validate()) {
         cerr << "Invalid Biological Experiment data!\n";
         return;
@@ -83,12 +101,21 @@ void createCopyBiologicalExperiment() {
         return;
     }
     auto copy = make_unique<BiologicalExperiment>(*source);
-    experimentsMap[copy->getExperimentId() + "_copy"] = move(copy);
+    string newId = copy->getExperimentId() + "_copy";
+    if (experimentsMap.find(newId) != experimentsMap.end()) {
+        cerr << "Error! Copy ID already exists!\n";
+        return;
+    }
+    experimentsMap[newId] = move(copy);
 }
 
 void createModifyBiologicalExperiment() {
     string id;
     EnterString(cin, id, "Enter new Biological Experiment ID");
+    if (experimentsMap.find(id) != experimentsMap.end()) {
+        cerr << "Error! Experiment ID already exists!\n";
+        return;
+    }
     auto obj = make_unique<BiologicalExperiment>(id);
     if (!obj->validate()) {
         cerr << "Invalid Biological Experiment data!\n";
@@ -100,6 +127,10 @@ void createModifyBiologicalExperiment() {
 void createNewQuantumExperiment() {
     auto obj = make_unique<QuantumExperiment>();
     cin >> *obj;
+    if (experimentsMap.find(obj->getExperimentId()) != experimentsMap.end()) {
+        cerr << "Error! Experiment ID already exists!\n";
+        return;
+    }
     if (!obj->validate()) {
         cerr << "Invalid Quantum Experiment data!\n";
         return;
@@ -114,12 +145,21 @@ void createCopyQuantumExperiment() {
         return;
     }
     auto copy = make_unique<QuantumExperiment>(*source);
-    experimentsMap[copy->getExperimentId() + "_copy"] = move(copy);
+    string newId = copy->getExperimentId() + "_copy";
+    if (experimentsMap.find(newId) != experimentsMap.end()) {
+        cerr << "Error! Copy ID already exists!\n";
+        return;
+    }
+    experimentsMap[newId] = move(copy);
 }
 
 void createModifyQuantumExperiment() {
     string id;
     EnterString(cin, id, "Enter new Quantum Experiment ID");
+    if (experimentsMap.find(id) != experimentsMap.end()) {
+        cerr << "Error! Experiment ID already exists!\n";
+        return;
+    }
     auto obj = make_unique<QuantumExperiment>(id);
     if (!obj->validate()) {
         cerr << "Invalid Quantum Experiment data!\n";
